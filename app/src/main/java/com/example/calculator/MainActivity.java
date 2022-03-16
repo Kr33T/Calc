@@ -98,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.seven:
             case R.id.eight:
             case R.id.nine:
+                if(!fnum && firstNumber.getText() == "")
+                {
+                    fnum = !fnum;
+                }
                 Button button = (Button) view;
                 String numText;
                 if (fnum) {
