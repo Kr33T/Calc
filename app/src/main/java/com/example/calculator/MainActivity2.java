@@ -2,13 +2,14 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.TypeConverter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
 
     TextView firstNumber;
     TextView sign;
@@ -26,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button seven;
     Button eight;
     Button nine;
-    Button plus;
-    Button minus;
-    Button multiply;
-    Button divide;
+    Button root;
+    Button degree;
+    Button sin;
+    Button cos;
     Button clear;
     Button equals;
     Button transition;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
         act = "";
         fnum = true;
@@ -62,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         seven = findViewById(R.id.seven);
         eight = findViewById(R.id.eight);
         nine = findViewById(R.id.nine);
-        plus = findViewById(R.id.plus);
-        minus = findViewById(R.id.minus);
-        multiply = findViewById(R.id.multiply);
-        divide = findViewById(R.id.divide);
+        root = findViewById(R.id.root);
+        degree = findViewById(R.id.degree);
+        sin = findViewById(R.id.sin);
+        cos = findViewById(R.id.cos);
         clear = findViewById(R.id.clear);
         equals = findViewById(R.id.equals);
         transition = findViewById(R.id.transition);
@@ -80,21 +81,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         seven.setOnClickListener(this);
         eight.setOnClickListener(this);
         nine.setOnClickListener(this);
-        plus.setOnClickListener(this);
-        minus.setOnClickListener(this);
-        multiply.setOnClickListener(this);
-        divide.setOnClickListener(this);
+        root.setOnClickListener(this);
+        degree.setOnClickListener(this);
+        sin.setOnClickListener(this);
+        cos.setOnClickListener(this);
         clear.setOnClickListener(this);
         equals.setOnClickListener(this);
         transition.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.transition:
-                Intent intent = new Intent(this, MainActivity2.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.zero:
             case R.id.one:
@@ -106,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.seven:
             case R.id.eight:
             case R.id.nine:
-                if(!fnum && firstNumber.getText() == "")
-                {
+                if (!fnum && firstNumber.getText() == "") {
                     fnum = !fnum;
                 }
                 Button button = (Button) view;
@@ -122,24 +121,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     secondNumber.setText(numText);
                 }
                 break;
-            case R.id.plus:
-            case R.id.minus:
-            case R.id.multiply:
-            case R.id.divide:
+            case R.id.root:
+            case R.id.degree:
+            case R.id.sin:
+            case R.id.cos:
                 Button button1 = (Button) view;
                 x = view.getId();
                 switch (x) {
-                    case R.id.plus:
-                        sign.setText("+");
+                    case R.id.root:
+                        sign.setText("√");
                         break;
-                    case R.id.minus:
-                        sign.setText("-");
+                    case R.id.degree:
+                        sign.setText("^");
                         break;
-                    case R.id.multiply:
-                        sign.setText("*");
+                    case R.id.sin:
+                        sign.setText("s");
                         break;
-                    case R.id.divide:
-                        sign.setText("/");
+                    case R.id.cos:
+                        sign.setText("c");
                         break;
                 }
                 if (act == button1.getText().toString()) {
@@ -159,25 +158,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 result.setText("");
                 break;
             case R.id.equals:
-                float num1 = Float.valueOf(firstNumber.getText().toString());
-                float num2 = Float.valueOf(secondNumber.getText().toString());
-                float res;
+
+                double res;
                 eq.setText("=");
                 switch (x) {
-                    case R.id.plus:
-                        res = num1 + num2;
+                    case R.id.root:
+                        float num1 = Float.valueOf(firstNumber.getText().toString());
+                        float num2 = Float.valueOf(secondNumber.getText().toString());
+                        res = Math.pow(num2, 1 / num1);
                         result.setText(String.valueOf(res));
                         break;
-                    case R.id.minus:
-                        res = num1 - num2;
+                    case R.id.degree:
+                        float num3 = Float.valueOf(firstNumber.getText().toString());
+                        float num4= Float.valueOf(secondNumber.getText().toString());
+                        res = Math.pow(num3, num4);
                         result.setText(String.valueOf(res));
                         break;
-                    case R.id.divide:
-                        res = num1 / num2;
+                    case R.id.sin:
+                        float num5 = Float.valueOf(firstNumber.getText().toString());
+                        res = Math.sin(Math.toRadians(num5));
                         result.setText(String.valueOf(res));
                         break;
-                    case R.id.multiply:
-                        res = num1 * num2;
+                    case R.id.cos:
+                        float num6 = Float.valueOf(firstNumber.getText().toString());
+                        res = Math.cos(Math.toRadians(num6));
                         result.setText(String.valueOf(res));
                         break;
                 }
