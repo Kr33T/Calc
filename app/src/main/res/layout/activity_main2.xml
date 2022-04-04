@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity2">
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/secondNumber"
+        />
+
     <TextView
         android:id="@+id/firstNumber"
         android:layout_width="0dp"
@@ -17,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@id/buttonTable"
         app:layout_constraintEnd_toStartOf="@id/sign"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/spinner" />
 
     <TextView
         android:id="@+id/sign"
@@ -27,7 +37,7 @@
         android:textSize="34sp"
         android:gravity="center"
         android:foregroundGravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner"
         app:layout_constraintStart_toEndOf="@id/firstNumber"
         app:layout_constraintEnd_toStartOf="@id/secondNumber"
         app:layout_constraintBottom_toTopOf="@id/buttonTable"/>
@@ -43,7 +53,7 @@
         app:layout_constraintBottom_toTopOf="@id/buttonTable"
         app:layout_constraintEnd_toStartOf="@id/eq"
         app:layout_constraintStart_toEndOf="@id/sign"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/spinner" />
 
     <TextView
         android:id="@+id/eq"
@@ -53,7 +63,7 @@
         android:textSize="34sp"
         android:gravity="center"
         android:foregroundGravity="center"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner"
         app:layout_constraintBottom_toTopOf="@id/buttonTable"
         app:layout_constraintStart_toEndOf="@id/secondNumber"
         app:layout_constraintEnd_toStartOf="@id/result"/>
@@ -69,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@id/buttonTable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/eq"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/spinner" />
 
     <TableLayout
         android:id="@+id/buttonTable"

@@ -6,10 +6,16 @@ import android.animation.TypeConverter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 
+import java.util.Arrays;
+
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
+
+    Spinner spinner;
 
     TextView firstNumber;
     TextView sign;
@@ -35,9 +41,11 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     Button equals;
     Button transition;
 
-    String act;
+    String act, fn, sn, oper, rslt;
+    String[] results = new String[0];
     boolean fnum;
     int x;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +54,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
         act = "";
         fnum = true;
+
+        spinner = findViewById(R.id.spinner);
 
         firstNumber = findViewById(R.id.firstNumber);
         sign = findViewById(R.id.sign);
@@ -130,15 +140,19 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                 switch (x) {
                     case R.id.root:
                         sign.setText("√");
+                        oper += "√";
                         break;
                     case R.id.degree:
                         sign.setText("^");
+                        oper += "^";
                         break;
                     case R.id.sin:
                         sign.setText("s");
+                        oper += "sin";
                         break;
                     case R.id.cos:
                         sign.setText("c");
+                        oper += "cos";
                         break;
                 }
                 if (act == button1.getText().toString()) {
@@ -165,27 +179,48 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                     case R.id.root:
                         float num1 = Float.valueOf(firstNumber.getText().toString());
                         float num2 = Float.valueOf(secondNumber.getText().toString());
+                        fn = firstNumber.getText().toString();
+                        sn = secondNumber.getText().toString();
                         res = Math.pow(num2, 1 / num1);
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.degree:
                         float num3 = Float.valueOf(firstNumber.getText().toString());
                         float num4 = Float.valueOf(secondNumber.getText().toString());
+                        fn = firstNumber.getText().toString();
+                        sn = secondNumber.getText().toString();
                         res = Math.pow(num3, num4);
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.sin:
                         float num5 = Float.valueOf(firstNumber.getText().toString());
+                        fn = firstNumber.getText().toString();
+                        sn = "";
                         res = Math.sin(Math.toRadians(num5));
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.cos:
                         float num6 = Float.valueOf(firstNumber.getText().toString());
+                        fn = firstNumber.getText().toString();
+                        sn = "";
                         res = Math.cos(Math.toRadians(num6));
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                 }
                 fnum = !fnum;
+                results = Arrays.copyOf(results, results.length + 1);
+                oper = oper.replace("null", "");
+                results[results.length - 1] = fn + " " + oper + " " + sn + " = " + rslt;
+                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,results);
+                spinner.setAdapter(adapter);
+                fn = "";
+                sn = "";
+                oper = "";
+                rslt = "";
                 break;
         }
     }
