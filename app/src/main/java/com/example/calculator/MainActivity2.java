@@ -170,7 +170,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                         break;
                     case R.id.degree:
                         float num3 = Float.valueOf(firstNumber.getText().toString());
-                        float num4= Float.valueOf(secondNumber.getText().toString());
+                        float num4 = Float.valueOf(secondNumber.getText().toString());
                         res = Math.pow(num3, num4);
                         result.setText(String.valueOf(res));
                         break;

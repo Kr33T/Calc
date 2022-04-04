@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Calculator</string>
+    <string-array name="spinner_array">
+        <item>Абоба</item>
+        <item>Амогус</item>
+        <item>Апчиигма</item>
+    </string-array>
 </resources>

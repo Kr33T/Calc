@@ -5,10 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Button;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    Spinner spinner;
 
     TextView firstNumber;
     TextView sign;
@@ -34,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button equals;
     Button transition;
 
-    String act;
+    String act, fn, sn, oper, rslt;
+    String[] results = new String[0];
     boolean fnum;
     int x;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         act = "";
         fnum = true;
+
+        spinner = findViewById(R.id.spinner);
 
         firstNumber = findViewById(R.id.firstNumber);
         sign = findViewById(R.id.sign);
@@ -131,15 +141,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (x) {
                     case R.id.plus:
                         sign.setText("+");
+                        oper += "+";
                         break;
                     case R.id.minus:
                         sign.setText("-");
+                        oper += "-";
                         break;
                     case R.id.multiply:
                         sign.setText("*");
+                        oper += "*";
                         break;
                     case R.id.divide:
                         sign.setText("/");
+                        oper += "/";
                         break;
                 }
                 if (act == button1.getText().toString()) {
@@ -161,27 +175,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.equals:
                 float num1 = Float.valueOf(firstNumber.getText().toString());
                 float num2 = Float.valueOf(secondNumber.getText().toString());
+                fn = firstNumber.getText().toString();
+                sn = secondNumber.getText().toString();
                 float res;
                 eq.setText("=");
                 switch (x) {
                     case R.id.plus:
                         res = num1 + num2;
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.minus:
                         res = num1 - num2;
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.divide:
                         res = num1 / num2;
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                     case R.id.multiply:
                         res = num1 * num2;
                         result.setText(String.valueOf(res));
+                        rslt = String.valueOf(res);
                         break;
                 }
                 fnum = !fnum;
+                results = Arrays.copyOf(results, results.length + 1);
+                oper = oper.replace("null", "");
+                results[results.length - 1] = fn + " " + oper + " " + sn + " = " + rslt;
+                adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,results);
+                spinner.setAdapter(adapter);
+                fn = "";
+                sn = "";
+                oper = "";
+                rslt = "";
                 break;
         }
     }
