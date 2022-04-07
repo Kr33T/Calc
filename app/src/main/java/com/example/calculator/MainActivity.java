@@ -203,8 +203,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 fnum = !fnum;
                 results = Arrays.copyOf(results, results.length + 1);
+                String temp;
+                for(int i = results.length - 1; i >= 1; i--)
+                {
+                    temp = results[i - 1];
+                    results[i - 1] = results[i];
+                    results[i] = temp;
+                }
                 oper = oper.replace("null", "");
-                results[results.length - 1] = fn + " " + oper + " " + sn + " = " + rslt;
+                results[0] = fn + " " + oper + " " + sn + " = " + rslt;
                 adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,results);
                 spinner.setAdapter(adapter);
                 fn = "";
