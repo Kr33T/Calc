@@ -141,19 +141,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (x) {
                     case R.id.plus:
                         sign.setText("+");
-                        oper += "+";
+                        oper = "+";
                         break;
                     case R.id.minus:
                         sign.setText("-");
-                        oper += "-";
+                        oper = "-";
                         break;
                     case R.id.multiply:
                         sign.setText("*");
-                        oper += "*";
+                        oper = "*";
                         break;
                     case R.id.divide:
                         sign.setText("/");
-                        oper += "/";
+                        oper = "/";
                         break;
                 }
                 if (act == button1.getText().toString()) {
@@ -210,7 +210,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     results[i - 1] = results[i];
                     results[i] = temp;
                 }
-                oper = oper.replace("null", "");
                 results[0] = fn + " " + oper + " " + sn + " = " + rslt;
                 adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,results);
                 spinner.setAdapter(adapter);
